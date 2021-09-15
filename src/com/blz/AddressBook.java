@@ -14,7 +14,7 @@ public class AddressBook {
 		ArrayList<Contact> contactList = new ArrayList<>();
 		int choice = 0;
 		do {
-			System.out.println("1.add\n2.display\n3.exit\n 4.update");
+			System.out.println("1.add\n2.display\n3.exit\n 4.update\n5.delete contact");
 			System.out.println("Enter choice");
 			choice = SC.nextInt();
 			switch (choice) {
@@ -57,6 +57,17 @@ public class AddressBook {
 						System.out.println("Enter an email ID: ");
 						editContact.setEmailID(SC.next());
 						contactList.set(i, editContact);
+					}
+				}
+				break;
+			case 5:
+				System.out.println("Enter name which you want to delete: ");
+				String nameDelete = SC.next();
+				for (int i = 0; i < contactList.size(); i++) {
+					System.out.println(contactList.get(i));
+					Contact editContact = contactList.get(i);
+					if (nameDelete.equals(editContact.getFirstName())) {
+						contactList.remove(i);
 					}
 				}
 				break;
