@@ -1,6 +1,7 @@
 package com.blz;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,8 @@ public class Operations implements IOperations {
 					int choice = 0;
 					do {
 						System.out.println("1.add\n2.display\n3.exit\n 4.update\n5.delete contact"
-								+ "\n6.search person by city\n7.getSorted enteries by person name");
+								+ "\n6.search person by city\n7.getSorted enteries by person name"
+								+ "\n8.Sorted by state \n9.sorted by zip");
 						System.out.println("Enter choice");
 						choice = SC.nextInt();
 						switch (choice) {
@@ -75,6 +77,21 @@ public class Operations implements IOperations {
 							// contactList.stream().sorted(Comparator.comparing(Contact::getFirstName))
 							// .collect(Collectors.toList());
 
+							break;
+						case 8:
+							System.out.println("state Sorted List");
+							List<Contact> listByStateSorted = contactList.stream()
+									.sorted((i1, i2) -> i1.getState().compareTo(i2.getState()))
+									.collect(Collectors.toList());
+							listByStateSorted.stream().forEach(System.out::println);
+							break;
+
+						case 9:
+							System.out.println("zip Sorted List");
+							List<Contact> listByZipSorted = contactList.stream()
+									.sorted(Comparator.comparing(Contact::getZip)).collect(Collectors.toList());
+
+							listByZipSorted.stream().forEach(System.out::println);
 							break;
 
 						default:
