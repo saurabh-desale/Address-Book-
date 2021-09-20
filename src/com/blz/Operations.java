@@ -2,8 +2,10 @@ package com.blz;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Operations implements IOperations {
 	private static final Scanner SC = new Scanner(System.in);
@@ -84,17 +86,11 @@ public class Operations implements IOperations {
 				break;
 
 			case 4:
-				System.out.println("Enter name of state to search  person details");
-				String temp = SC.next();
-				map.entrySet().stream().flatMap(i -> i.getValue().stream()).filter(i -> i.getState().equals(temp))
-						.forEach(System.out::println);
+				getPersonDetailsBySameState();
 				break;
 
 			case 6:
-				System.out.println("Enter name of city to search a person details");
-				String temp1 = SC.next();
-				map.entrySet().stream().flatMap(i -> i.getValue().stream()).filter(i -> i.getCity().equals(temp1))
-						.forEach(System.out::println);
+				getPersonDetailsBySameCity();
 				break;
 
 			default:
@@ -103,6 +99,30 @@ public class Operations implements IOperations {
 			}
 
 		} while (choose != 3);
+	}
+
+	public void getPersonDetailsBySameState() {
+		System.out.println("Enter name of state to view  person details");
+		String temp = SC.next();
+		List<Contact> stateContactList = map.entrySet().stream().flatMap(i -> i.getValue().stream())
+				.filter(i -> i.getState().equals(temp)).collect(Collectors.toList());
+
+		Map<String, List<Contact>> stateContactMap = new HashMap<>();
+		stateContactMap.put(temp, stateContactList);
+
+		stateContactMap.entrySet().stream().flatMap(i -> i.getValue().stream()).forEach(System.out::println);
+	}
+
+	public void getPersonDetailsBySameCity() {
+		System.out.println("Enter name of city to view a person details");
+		String temp1 = SC.next();
+		List<Contact> cityContactList = map.entrySet().stream().flatMap(i -> i.getValue().stream())
+				.filter(i -> i.getCity().equals(temp1)).collect(Collectors.toList());
+
+		Map<String, List<Contact>> cityContactMap = new HashMap<>();
+		cityContactMap.put(temp1, cityContactList);
+
+		cityContactMap.entrySet().stream().flatMap(i -> i.getValue().stream()).forEach(System.out::println);
 	}
 
 	public void sameCityPerson(ArrayList<Contact> contactList) {
