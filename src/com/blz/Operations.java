@@ -33,8 +33,8 @@ public class Operations implements IOperations {
 				} else {
 					int choice = 0;
 					do {
-						System.out.println(
-								"1.add\n2.display\n3.exit\n 4.update\n5.delete contact\n6.search person by city");
+						System.out.println("1.add\n2.display\n3.exit\n 4.update\n5.delete contact"
+								+ "\n6.search person by city\n7.getSorted enteries by person name");
 						System.out.println("Enter choice");
 						choice = SC.nextInt();
 						switch (choice) {
@@ -63,6 +63,18 @@ public class Operations implements IOperations {
 
 						case 6:
 							sameCityPerson(contactList);
+							break;
+
+						case 7:
+							System.out.println("Person name Sorted List");
+							List<Contact> listSorted = contactList.stream()
+									.sorted((i1, i2) -> i1.getFirstName().compareTo(i2.getFirstName()))
+									.collect(Collectors.toList());
+							listSorted.stream().forEach(System.out::println);
+
+							// contactList.stream().sorted(Comparator.comparing(Contact::getFirstName))
+							// .collect(Collectors.toList());
+
 							break;
 
 						default:
