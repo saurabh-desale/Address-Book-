@@ -18,7 +18,8 @@ public class Operations implements IOperations {
 		do {
 			Contact add;
 			System.out.println("1.addAddressBook \n 2.display\n3.exit\n "
-					+ "4.GetContactDetails by state name \n 6.GetContactDetails by city name");
+					+ "4.GetContactDetails by state name \n 6.GetContactDetails by city name \n "
+					+ "7.Get Count of person of same city");
 
 			choose = SC.nextInt();
 			switch (choose) {
@@ -91,6 +92,18 @@ public class Operations implements IOperations {
 
 			case 6:
 				getPersonDetailsBySameCity();
+				break;
+
+			case 7:
+				System.out.println("Enter name of city to search a person");
+				String temp = SC.next();
+				List<Contact> cityContactList = map.entrySet().stream().flatMap(i -> i.getValue().stream())
+						.filter(i -> i.getCity().equals(temp)).collect(Collectors.toList());
+
+				Map<String, List<Contact>> cityContactMap = new HashMap<>();
+				cityContactMap.put(temp, cityContactList);
+				long count = cityContactMap.entrySet().stream().flatMap(i -> i.getValue().stream()).count();
+				System.out.println(count);
 				break;
 
 			default:
